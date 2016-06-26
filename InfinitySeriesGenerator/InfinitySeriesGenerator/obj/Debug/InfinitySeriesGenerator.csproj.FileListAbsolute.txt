@@ -1,0 +1,13 @@
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\bin\Debug\InfinitySeriesGenerator.exe.config
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\bin\Debug\InfinitySeriesGenerator.exe
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\bin\Debug\InfinitySeriesGenerator.pdb
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator.csprojResolveAssemblyReference.cache
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\MainWindow.baml
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\MainWindow.g.cs
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\App.g.cs
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator_MarkupCompile.cache
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator.g.resources
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator.Properties.Resources.resources
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator.csproj.GenerateResource.Cache
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator.exe
+c:\users\richard\documents\visual studio 2013\Projects\InfinitySeriesGenerator\InfinitySeriesGenerator\obj\Debug\InfinitySeriesGenerator.pdb
