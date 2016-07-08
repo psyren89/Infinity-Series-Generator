@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 /* The main class used to create the Infinity Series, according to input.
 Author: Richard Gaynor
