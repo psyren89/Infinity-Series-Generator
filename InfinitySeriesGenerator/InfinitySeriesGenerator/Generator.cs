@@ -40,7 +40,6 @@ namespace InfinitySeriesGenerator
                 notes[1] = "1 = " + Generator.Notes[Generator.TransferCheck(startNoteIndex + numbers[1], ref octave)] + octave;
             }
 
-            //the for loop to determine the infinity series
             for (var i = 1; i < start + total + 1; i++)
             {
                 octave = 3;
