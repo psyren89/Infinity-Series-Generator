@@ -20,8 +20,8 @@ namespace InfinitySeriesGenerator
         //generates the notes
         public void ISeriesGenerate(int total, int start)
         {
-            int[] numbers = new int[start*2 + total];
-            string[] notes = new string[start*2 + total];
+            var numbers = new int[start * 2 + total];
+            var notes = new string[start * 2 + total];
             int first;
             int second;
             int previous;
@@ -57,9 +57,9 @@ namespace InfinitySeriesGenerator
             for (int i = 1; i < start + total + 1; i++)
             {
                 octave = 3;
-                first = 2*i-2;
-                second = 2*i -1;
-                previous = i-1;
+                first = 2 * i - 2;
+                second = 2 * i - 1;
+                previous = i - 1;
 
                 //breaks if at the end
                 if (i * 2 >= start + total || i * 2 + 1 >= start + total)
@@ -68,11 +68,11 @@ namespace InfinitySeriesGenerator
                 }
 
                 //first (even) number entry
-                numbers[2*i] = numbers[first] - (numbers[i] - numbers[previous]);
+                numbers[2 * i] = numbers[first] - (numbers[i] - numbers[previous]);
 
-                if (i*2 >= start)
+                if (i * 2 >= start)
                 {
-                    notes[2 * j] = 2 * i + " = " + noteTypes[transferCheck(numbers[2*i] + startNote)] + octave;
+                    notes[2 * j] = 2 * i + " = " + NOTE_TYPES[transferCheck(numbers[2 * i] + startNote)] + octave;
                 }
 
                 //restarts octave for next note
@@ -81,9 +81,9 @@ namespace InfinitySeriesGenerator
                 //second (odd) number entry
                 numbers[2 * i + 1] = numbers[second] + (numbers[i] - numbers[previous]);
 
-                if (i*2 + 1 >= start)
+                if (i * 2 + 1 >= start)
                 {
-                    notes[2 * j + 1] = 2 * i + 1 + " = " + noteTypes[transferCheck(numbers[2 * i + 1] + startNote)] + octave;
+                    notes[2 * j + 1] = 2 * i + 1 + " = " + NOTE_TYPES[transferCheck(numbers[2 * i + 1] + startNote)] + octave;
                     j++;
                 }
 
