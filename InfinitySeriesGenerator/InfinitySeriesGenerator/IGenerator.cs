@@ -87,13 +87,12 @@ namespace InfinitySeriesGenerator
                 dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
 
                 // Show save file dialog box
-                Nullable<bool> result = dlg.ShowDialog();
-                string filename = string.Empty;
+                var result = dlg.ShowDialog();
                 // Process save file dialog box results
-                if (result == true)
+                if (result.GetValueOrDefault())
                 {
                     // Save document
-                    filename = dlg.FileName;
+                    var filename = dlg.FileName;
                     System.IO.File.WriteAllLines(filename, notes);
                 }
             }
