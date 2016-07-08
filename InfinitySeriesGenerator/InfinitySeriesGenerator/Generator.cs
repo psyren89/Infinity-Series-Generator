@@ -121,5 +121,20 @@ namespace InfinitySeriesGenerator
 
             return number;
         }
+
+        /// <summary>
+        /// Calculates the next note in the series in the format [name][octave].
+        /// </summary>
+        private static string GetNoteName(int nextNoteIndex, ref int octave)
+        {
+            var noteIndex = Generator.GetNextNoteIndex(nextNoteIndex, ref octave);
+            var note = Generator.Notes[noteIndex];
+            return string.Format("{0}{1}", note, octave);
+        }
+
+        private static string GetSeriesEntry(int seriesResultIndex, int nextNoteIndex, ref int octave)
+        {
+            return string.Format("{0} = {1}", seriesResultIndex, Generator.GetNoteName(nextNoteIndex, ref octave));
+        }
     }
 }
