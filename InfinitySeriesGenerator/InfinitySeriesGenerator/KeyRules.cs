@@ -1,13 +1,13 @@
-﻿﻿using System;
-using System.Windows.Input;
-
 /* A set of rules involving keys pressed.
 Author: Richard Gaynor
 */
 
 namespace InfinitySeriesGenerator
 {
-    public static class keyRules
+    using System.Text.RegularExpressions;
+    using System.Windows.Input;
+
+    public static class KeyRules
     {
         //checks for backspace/tab key
         public static bool IsDelOrBackspaceOrTabKey(Key inKey)

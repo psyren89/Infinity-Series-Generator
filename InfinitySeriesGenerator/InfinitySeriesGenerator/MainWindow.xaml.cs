@@ -1,13 +1,14 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace InfinitySeriesGenerator
+﻿namespace InfinitySeriesGenerator
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+
+    public partial class MainWindow
     {
         public MainWindow()
         {
