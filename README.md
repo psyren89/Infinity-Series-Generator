@@ -11,7 +11,6 @@ This program creates the Infinity Series for you, with the starting interval bei
 There are 3 main C# files used:
 
 # iGenerator
-The C# file with the generation code. 
 Currently only functions with a semitone as the first interval. Might add other options, like diatonic series, or different starting intervals later.
 
 # KeyRules
