@@ -26,10 +26,7 @@
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-        {
-            iGenerator iG = new iGenerator();
-            iG.startNote = NoteNamesBox.SelectedIndex;
-            iG.iSeriesGenerate(Convert.ToInt32(numberBox.Text), Convert.ToInt32(startBox.Text));
+            Generator.GenerateSeries(this.NoteNamesBox.SelectedIndex, Convert.ToInt32(this.numberBox.Text), Convert.ToInt32(this.startBox.Text));
         }
 
         //loads the notes into the combobox
