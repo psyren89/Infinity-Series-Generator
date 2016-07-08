@@ -18,7 +18,7 @@ namespace InfinitySeriesGenerator
         private int octave = 3;
 
         //generates the notes
-        public void iSeriesGenerate(int total, int start)
+        public void ISeriesGenerate(int total, int start)
         {
             int[] numbers = new int[start*2 + total];
             string[] notes = new string[start*2 + total];
