@@ -11,11 +11,11 @@ namespace InfinitySeriesGenerator
 
     internal static class Generator
     {
-        //holds the note names
-        public static readonly IList<string> Notes = new List<string>
-            {
-                "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
-            }.AsReadOnly();
+        /// <summary>
+        /// The notes of the scale.
+        /// </summary>
+        public static readonly IList<string> Notes =
+            new List<string> { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }.AsReadOnly();
 
         public static void GenerateSeries(int startNoteIndex, int total, int start)
         {
