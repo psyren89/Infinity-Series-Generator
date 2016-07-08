@@ -15,7 +15,7 @@
         //checks for numerical input
         private void NumberBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = !keyRules.IsNumberKey(e.Key) && !keyRules.IsDelOrBackspaceOrTabKey(e.Key);
+            e.Handled = !InputRules.IsPermitted(e.Key);
         }
 
         //stops people copy/pasting non-numbers in!
