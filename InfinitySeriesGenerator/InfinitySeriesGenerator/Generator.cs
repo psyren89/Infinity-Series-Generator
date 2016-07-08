@@ -31,50 +31,57 @@ namespace InfinitySeriesGenerator
             numbers[0] = 0;
             if (start <= 0)
             {
-                notes[0] = "0 = " + Generator.Notes[Generator.TransferCheck(startNoteIndex + numbers[0], ref octave)] + octave;
+                notes[0] = Generator.GetSeriesEntry(0, startNoteIndex + numbers[0], ref octave);
             }
 
             numbers[1] = 1;
             if (start <= 1)
             {
-                notes[1] = "1 = " + Generator.Notes[Generator.TransferCheck(startNoteIndex + numbers[1], ref octave)] + octave;
+                notes[1] = Generator.GetSeriesEntry(1, startNoteIndex + numbers[1], ref octave);
             }
 
-            for (var i = 1; i < start + total + 1; i++)
+            Generator.GenerateSeries(startNoteIndex, total, start, numbers, notes, j);
+            Generator.WriteToFile(notes);
+        }
+
+        private static void GenerateSeries(int startNoteIndex, int total, int start, IList<int> numbers, IList<string> notes, int j)
+        {
+            var limit = start + total + 1;
+            for (var i = 1; i < limit; i++)
             {
-                octave = 3;
-                var first = 2 * i - 2;
-                var second = 2 * i - 1;
+                var octave = 3;
+                var index = 2 * i;
+                var first = index - 2;
+                var second = index - 1;
                 var previous = i - 1;
 
                 //breaks if at the end
-                if (i * 2 >= start + total || i * 2 + 1 >= start + total)
+                var nextIndex = index + 1;
+                if (index >= start + total || nextIndex >= start + total)
                 {
                     break;
                 }
 
                 //first (even) number entry
-                numbers[2 * i] = numbers[first] - (numbers[i] - numbers[previous]);
+                numbers[index] = numbers[first] - (numbers[i] - numbers[previous]);
 
-                if (i * 2 >= start)
+                if (index >= start)
                 {
-                    notes[2 * j] = 2 * i + " = " + Generator.Notes[Generator.TransferCheck(numbers[2 * i] + startNoteIndex, ref octave)] + octave;
+                    notes[2 * j] = Generator.GetSeriesEntry(index, numbers[index] + startNoteIndex, ref octave);
                 }
 
                 //reset octave for next note
                 octave = 3;
 
                 //second (odd) number entry
-                numbers[2 * i + 1] = numbers[second] + (numbers[i] - numbers[previous]);
+                numbers[nextIndex] = numbers[second] + (numbers[i] - numbers[previous]);
 
-                if (i * 2 + 1 >= start)
+                if (nextIndex >= start)
                 {
-                    notes[2 * j + 1] = 2 * i + 1 + " = " + Generator.Notes[Generator.TransferCheck(numbers[2 * i + 1] + startNoteIndex, ref octave)] + octave;
+                    notes[2 * j + 1] = Generator.GetSeriesEntry(nextIndex, numbers[nextIndex] + startNoteIndex, ref octave);
                     j++;
                 }
             }
-
-            Generator.WriteToFile(notes);
         }
 
         private static void WriteToFile(IEnumerable<string> notes)
