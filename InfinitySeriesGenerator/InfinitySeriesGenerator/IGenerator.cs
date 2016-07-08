@@ -29,26 +29,19 @@ namespace InfinitySeriesGenerator
             //j is used to add to the notes array, as it sometimes won't be synced with the i in the for loop.
             //if j is 0, the counting in the for loop with j starts at 0. This would override the below code for 0 and 1 outside the for loop, so this changes j accordingly.
             var j = start <= 1 ? 1 : 0;
-            {
-            }
-            else
-            {
-            }
 
             //0 and 1 are always the same in the series, and don't adhere to the formula. So they are done before the for loop
-                numbers[0] = 0;
-                if (start <= 0)
-                {
-                    notes[0] = "0 = " + noteTypes[transferCheck(startNote + numbers[0])] + octave;
-                }
+            numbers[0] = 0;
+            if (start <= 0)
+            {
+                notes[0] = "0 = " + NOTE_TYPES[transferCheck(startNote + numbers[0])] + octave;
+            }
 
-                numbers[1] = 1;
-                if (start <= 1)
-                {
-                    notes[1] = "1 = " + noteTypes[transferCheck(startNote + numbers[1])] + octave;
-                }
-
-
+            numbers[1] = 1;
+            if (start <= 1)
+            {
+                notes[1] = "1 = " + NOTE_TYPES[transferCheck(startNote + numbers[1])] + octave;
+            }
 
             //the for loop to determine the infinity series
             for (int i = 1; i < start + total + 1; i++)
@@ -83,9 +76,6 @@ namespace InfinitySeriesGenerator
                     notes[2 * j + 1] = 2 * i + 1 + " = " + NOTE_TYPES[transferCheck(numbers[2 * i + 1] + startNote)] + octave;
                     j++;
                 }
-
-
-
             }
 
             //Saves the series as a text file
