@@ -6,7 +6,7 @@ Author: Richard Gaynor
 */
 namespace InfinitySeriesGenerator
 {
-    class iGenerator
+    class IGenerator
     {
 
         //holds the note names
