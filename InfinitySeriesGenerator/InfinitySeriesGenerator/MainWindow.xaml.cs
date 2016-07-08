@@ -9,23 +9,24 @@
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         //checks for numerical input
-        private void numberBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void NumberBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = !keyRules.IsNumberKey(e.Key) && !keyRules.IsDelOrBackspaceOrTabKey(e.Key);
         }
 
         //stops people copy/pasting non-numbers in!
-        private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void NumberBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            numberBox.Text = keyRules.checkForChar(numberBox.Text);
+            this.numberBox.Text = InputRules.SanitiseInput(this.numberBox.Text);
         }
 
         //the notes!
         private string[] noteTypes = new string[12]
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             "C",
             "C#",
@@ -41,8 +42,6 @@
             "B"
         };
 
-        //activates the algorithm
-        private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             iGenerator iG = new iGenerator();
             iG.startNote = NoteNamesBox.SelectedIndex;
@@ -50,7 +49,7 @@
         }
 
         //loads the notes into the combobox
-        private void NoteNamesBox_Loaded(object sender, RoutedEventArgs e)
+        private void SetupStartingNoteNameSelector(object sender, RoutedEventArgs e)
         {
             //... A List.
 	    List<string> data = iGenerator.noteTypes.Cast<string>().ToList();
