@@ -31,8 +31,8 @@ namespace InfinitySeriesGenerator
         //stops people copy/pasting non-numbers in!
         public static string checkForChar(string s)
         {
-            String tmp = s;
-            foreach (char c in s.ToCharArray())
+            var tmp = s;
+            foreach (var c in s.ToCharArray())
             {
                 if (!System.Text.RegularExpressions.Regex.IsMatch(c.ToString(), "^[0-9]*$"))
                 {
