@@ -1,8 +1,5 @@
 ﻿namespace InfinitySeriesGenerator
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     using System;
     using System.Windows;
     using System.Windows.Controls;
