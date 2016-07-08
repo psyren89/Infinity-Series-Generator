@@ -98,8 +98,11 @@ namespace InfinitySeriesGenerator
             }
         }
 
-        //makes sure the infinity series stays within 0 and 11 (i.e. an octave)
-        private static int TransferCheck(int index, ref int octave)
+        /// <summary>
+        /// Calculates the index into Notes of the next item in the series.
+        /// Adjusts octave as required while keeping the result within the bounds (0..Notes.Count).
+        /// </summary>
+        private static int GetNextNoteIndex(int index, ref int octave)
         {
             var number = index;
             while (number < 0 || number > 11)
@@ -109,8 +112,7 @@ namespace InfinitySeriesGenerator
                     number -= 12;
                     ++octave;
                 }
-
-                if (number < 0)
+                else if (number < 0)
                 {
                     number += 12;
                     --octave;
