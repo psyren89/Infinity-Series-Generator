@@ -27,15 +27,12 @@ namespace InfinitySeriesGenerator
             int previous;
 
             //j is used to add to the notes array, as it sometimes won't be synced with the i in the for loop.
-            int j;
             //if j is 0, the counting in the for loop with j starts at 0. This would override the below code for 0 and 1 outside the for loop, so this changes j accordingly.
-            if (start <= 1)
+            var j = start <= 1 ? 1 : 0;
             {
-                j = 1;
             }
             else
             {
-                j = 0;
             }
 
             //0 and 1 are always the same in the series, and don't adhere to the formula. So they are done before the for loop
