@@ -1,29 +1,27 @@
-﻿using System.Collections.Generic;
-
-/* The main class used to create the Infinity Series, according to input.
+﻿/* The main class used to create the Infinity Series, according to input.
 Author: Richard Gaynor
 */
 namespace InfinitySeriesGenerator
 {
-    class IGenerator
+    using System.Collections.Generic;
+    using System.IO;
+
+    using Microsoft.Win32;
+
+    static class Generator
     {
         //holds the note names
-        public static readonly IList<string> NOTE_TYPES = new List<string>
+        public static readonly IList<string> Notes = new List<string>
             {
                 "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
             }.AsReadOnly();
 
-        public int startNote = 0;
-        private int octave = 3;
-
         //generates the notes
-        public void ISeriesGenerate(int total, int start)
+        public static void GenerateSeries(int startNoteIndex, int total, int start)
         {
             var numbers = new int[start * 2 + total];
             var notes = new string[start * 2 + total];
-            int first;
-            int second;
-            int previous;
+            var octave = 3;
 
             //j is used to add to the notes array, as it sometimes won't be synced with the i in the for loop.
             //if j is 0, the counting in the for loop with j starts at 0. This would override the below code for 0 and 1 outside the for loop, so this changes j accordingly.
@@ -33,22 +31,22 @@ namespace InfinitySeriesGenerator
             numbers[0] = 0;
             if (start <= 0)
             {
-                notes[0] = "0 = " + NOTE_TYPES[transferCheck(startNote + numbers[0])] + octave;
+                notes[0] = "0 = " + Generator.Notes[Generator.TransferCheck(startNoteIndex + numbers[0], ref octave)] + octave;
             }
 
             numbers[1] = 1;
             if (start <= 1)
             {
-                notes[1] = "1 = " + NOTE_TYPES[transferCheck(startNote + numbers[1])] + octave;
+                notes[1] = "1 = " + Generator.Notes[Generator.TransferCheck(startNoteIndex + numbers[1], ref octave)] + octave;
             }
 
             //the for loop to determine the infinity series
-            for (int i = 1; i < start + total + 1; i++)
+            for (var i = 1; i < start + total + 1; i++)
             {
                 octave = 3;
-                first = 2 * i - 2;
-                second = 2 * i - 1;
-                previous = i - 1;
+                var first = 2 * i - 2;
+                var second = 2 * i - 1;
+                var previous = i - 1;
 
                 //breaks if at the end
                 if (i * 2 >= start + total || i * 2 + 1 >= start + total)
@@ -61,7 +59,7 @@ namespace InfinitySeriesGenerator
 
                 if (i * 2 >= start)
                 {
-                    notes[2 * j] = 2 * i + " = " + NOTE_TYPES[transferCheck(numbers[2 * i] + startNote)] + octave;
+                    notes[2 * j] = 2 * i + " = " + Generator.Notes[Generator.TransferCheck(numbers[2 * i] + startNoteIndex, ref octave)] + octave;
                 }
 
                 //restarts octave for next note
@@ -72,35 +70,39 @@ namespace InfinitySeriesGenerator
 
                 if (i * 2 + 1 >= start)
                 {
-                    notes[2 * j + 1] = 2 * i + 1 + " = " + NOTE_TYPES[transferCheck(numbers[2 * i + 1] + startNote)] + octave;
+                    notes[2 * j + 1] = 2 * i + 1 + " = " + Generator.Notes[Generator.TransferCheck(numbers[2 * i + 1] + startNoteIndex, ref octave)] + octave;
                     j++;
                 }
             }
 
-            //Saves the series as a text file
-            if (start >= 0)
-            {
-                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = "InfinitySeries"; // Default file name
-                dlg.DefaultExt = ".text"; // Default file extension
-                dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+            Generator.WriteToFile(notes);
+        }
 
-                // Show save file dialog box
-                var result = dlg.ShowDialog();
-                // Process save file dialog box results
-                if (result.GetValueOrDefault())
-                {
-                    // Save document
-                    var filename = dlg.FileName;
-                    System.IO.File.WriteAllLines(filename, notes);
-                }
+        private static void WriteToFile(IEnumerable<string> notes)
+        {
+            //Saves the series as a text file
+            var dlg = new SaveFileDialog
+                          {
+                              FileName = "InfinitySeries",
+                              DefaultExt = ".text",
+                              Filter = "Text documents (.txt)|*.txt"
+                          };
+
+            // Show save file dialog box
+            var result = dlg.ShowDialog();
+            // Process save file dialog box results
+            if (result.GetValueOrDefault())
+            {
+                // Save document
+                var filename = dlg.FileName;
+                File.WriteAllLines(filename, notes);
             }
         }
 
         //makes sure the infinity series stays within 0 and 11 (i.e. an octave)
-        private int transferCheck(int j)
+        private static int TransferCheck(int index, ref int octave)
         {
-            var number = j;
+            var number = index;
             while (number < 0 || number > 11)
             {
                 if (number >= 12)
