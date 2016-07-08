@@ -24,24 +24,8 @@
             this.numberBox.Text = InputRules.SanitiseInput(this.numberBox.Text);
         }
 
-        //the notes!
-        private string[] noteTypes = new string[12]
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            "C",
-            "C#",
-            "D",
-            "D#",
-            "E",
-            "F",
-            "F#",
-            "G",
-            "G#",
-            "A",
-            "A#",
-            "B"
-        };
-
         {
             iGenerator iG = new iGenerator();
             iG.startNote = NoteNamesBox.SelectedIndex;
@@ -51,17 +35,19 @@
         //loads the notes into the combobox
         private void SetupStartingNoteNameSelector(object sender, RoutedEventArgs e)
         {
-            //... A List.
-	    List<string> data = iGenerator.noteTypes.Cast<string>().ToList();
-	    
-	    // ... Get the ComboBox reference.
-        var comboBox = sender as System.Windows.Controls.ComboBox;
+            // Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
 
-	    // ... Assign the ItemsSource to the List.
-	    comboBox.ItemsSource = data;
+            if (comboBox == null)
+            {
+                return;
+            }
 
-	    // ... Make the first item selected.
-	    comboBox.SelectedIndex = 0;
+            // Assign the ItemsSource to the List.
+            comboBox.ItemsSource = Generator.Notes;
+
+            // Make the first item selected.
+            comboBox.SelectedIndex = 0;
         }
     }
 }
