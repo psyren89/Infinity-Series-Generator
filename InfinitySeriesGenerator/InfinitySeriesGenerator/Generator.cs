@@ -1,6 +1,7 @@
 ﻿/* The main class used to create the Infinity Series, according to input.
 Author: Richard Gaynor
 */
+
 namespace InfinitySeriesGenerator
 {
     using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace InfinitySeriesGenerator
 
     using Microsoft.Win32;
 
-    static class Generator
+    internal static class Generator
     {
         //holds the note names
         public static readonly IList<string> Notes = new List<string>
