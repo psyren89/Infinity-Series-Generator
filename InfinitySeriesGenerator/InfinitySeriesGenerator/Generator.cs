@@ -27,7 +27,7 @@ namespace InfinitySeriesGenerator
             //if j is 0, the counting in the for loop with j starts at 0. This would override the below code for 0 and 1 outside the for loop, so this changes j accordingly.
             var j = start <= 1 ? 1 : 0;
 
-            //0 and 1 are always the same in the series, and don't adhere to the formula. So they are done before the for loop
+            //0 and 1 are always the same in the series and don't adhere to the formula. They are calculated ahead of the other entries.
             numbers[0] = 0;
             if (start <= 0)
             {
@@ -61,7 +61,7 @@ namespace InfinitySeriesGenerator
                     notes[2 * j] = 2 * i + " = " + Generator.Notes[Generator.TransferCheck(numbers[2 * i] + startNoteIndex, ref octave)] + octave;
                 }
 
-                //restarts octave for next note
+                //reset octave for next note
                 octave = 3;
 
                 //second (odd) number entry
