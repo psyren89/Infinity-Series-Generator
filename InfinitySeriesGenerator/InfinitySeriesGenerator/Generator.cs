@@ -82,20 +82,20 @@ namespace InfinitySeriesGenerator
         private static void WriteToFile(IEnumerable<string> notes)
         {
             //Saves the series as a text file
-            var dlg = new SaveFileDialog
-                          {
-                              FileName = "InfinitySeries",
-                              DefaultExt = ".text",
-                              Filter = "Text documents (.txt)|*.txt"
-                          };
+            var dialog = new SaveFileDialog
+                             {
+                                 FileName = "InfinitySeries",
+                                 DefaultExt = ".text",
+                                 Filter = "Text documents (.txt)|*.txt"
+                             };
 
             // Show save file dialog box
-            var result = dlg.ShowDialog();
+            var result = dialog.ShowDialog();
             // Process save file dialog box results
             if (result.GetValueOrDefault())
             {
                 // Save document
-                var filename = dlg.FileName;
+                var filename = dialog.FileName;
                 File.WriteAllLines(filename, notes);
             }
         }
