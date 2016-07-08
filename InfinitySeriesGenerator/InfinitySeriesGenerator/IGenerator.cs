@@ -8,23 +8,11 @@ namespace InfinitySeriesGenerator
 {
     class IGenerator
     {
-
         //holds the note names
-        public static string[] noteTypes = new string[12]
-        {
-            "C",
-            "C#",
-            "D",
-            "D#",
-            "E",
-            "F",
-            "F#",
-            "G",
-            "G#",
-            "A",
-            "A#",
-            "B"
-        };
+        public static readonly IList<string> NOTE_TYPES = new List<string>
+            {
+                "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
+            }.AsReadOnly();
 
         public int startNote = 0;
         private int octave = 3;
