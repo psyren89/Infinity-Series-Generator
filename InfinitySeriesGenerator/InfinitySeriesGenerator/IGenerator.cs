@@ -17,28 +17,6 @@ namespace InfinitySeriesGenerator
         public int startNote = 0;
         private int octave = 3;
 
-
-        //makes sure the infinity series stays within 0 and 11 (i.e. an octave)
-        private int transferCheck(int j)
-        {
-            int number = j;
-            while (number < 0 || number > 11)
-            {
-                if (number >= 12)
-                {
-                    number = number - 12;
-                    ++octave;
-                }
-                if (number < 0)
-                {
-                    number = 12 + number;
-                    --octave;
-                }
-            };
-            return number;
-        }
-
-
         //generates the notes
         public void iSeriesGenerate(int total, int start)
         {
@@ -132,6 +110,28 @@ namespace InfinitySeriesGenerator
                     System.IO.File.WriteAllLines(filename, notes);
                 }
             }
+        }
+
+        //makes sure the infinity series stays within 0 and 11 (i.e. an octave)
+        private int transferCheck(int j)
+        {
+            var number = j;
+            while (number < 0 || number > 11)
+            {
+                if (number >= 12)
+                {
+                    number -= 12;
+                    ++octave;
+                }
+
+                if (number < 0)
+                {
+                    number += 12;
+                    --octave;
+                }
+            }
+
+            return number;
         }
     }
 }
