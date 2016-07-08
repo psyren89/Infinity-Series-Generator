@@ -1,4 +1,4 @@
-﻿/* The main class used to create the Infinity Series, according to input.
+﻿/*
 Author: Richard Gaynor
 */
 
@@ -17,7 +17,6 @@ namespace InfinitySeriesGenerator
                 "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
             }.AsReadOnly();
 
-        //generates the notes
         public static void GenerateSeries(int startNoteIndex, int total, int start)
         {
             var numbers = new int[start * 2 + total];
