@@ -1,9 +1,13 @@
 ﻿namespace InfinitySeriesGenerator
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+
+    using Microsoft.Win32;
 
     public partial class MainWindow
     {
@@ -29,7 +33,8 @@
             var seriesSize = Convert.ToInt32(this.seriesSizeInput.Text);
             var startIndex = Convert.ToInt32(this.startingIndexInput.Text);
             var generator = new Generator(this.NoteNamesBox.SelectedIndex);
-            generator.GenerateSeries(seriesSize, startIndex);
+            var notes = generator.GenerateSeries(seriesSize, startIndex);
+            MainWindow.WriteToFile(notes);
         }
 
         //loads the notes into the combobox
@@ -44,10 +49,27 @@
             }
 
             // Assign the ItemsSource to the List.
-            comboBox.ItemsSource = Generator.Notes;
+            comboBox.ItemsSource = NoteCalculator.Notes;
 
             // Make the first item selected.
             comboBox.SelectedIndex = 0;
+        }
+
+        private static void WriteToFile(IEnumerable<string> notes)
+        {
+            //Saves the series as a text file
+            var dialog = new SaveFileDialog
+            {
+                FileName = "InfinitySeries",
+                DefaultExt = ".txt",
+                Filter = "Text documents (.txt)|*.txt"
+            };
+
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                var filename = dialog.FileName;
+                File.WriteAllLines(filename, notes);
+            }
         }
     }
 }

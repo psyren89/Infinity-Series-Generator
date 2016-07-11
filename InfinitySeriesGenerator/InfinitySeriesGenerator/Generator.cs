@@ -41,7 +41,7 @@ namespace InfinitySeriesGenerator
             }
 
             Generator.GenerateSeries(startNoteIndex, total, start, numbers, notes, j);
-            Generator.WriteToFile(notes);
+            return notes;
         }
 
         private static void GenerateSeries(int startNoteIndex, int total, int start, IList<int> numbers, IList<string> notes, int j)
@@ -81,27 +81,6 @@ namespace InfinitySeriesGenerator
                     notes[2 * j + 1] = Generator.GetSeriesEntry(nextIndex, numbers[nextIndex] + startNoteIndex, ref octave);
                     j++;
                 }
-            }
-        }
-
-        private static void WriteToFile(IEnumerable<string> notes)
-        {
-            //Saves the series as a text file
-            var dialog = new SaveFileDialog
-                             {
-                                 FileName = "InfinitySeries",
-                                 DefaultExt = ".txt",
-                                 Filter = "Text documents (.txt)|*.txt"
-                             };
-
-            // Show save file dialog box
-            var result = dialog.ShowDialog();
-            // Process save file dialog box results
-            if (result.GetValueOrDefault())
-            {
-                // Save document
-                var filename = dialog.FileName;
-                File.WriteAllLines(filename, notes);
             }
         }
 
