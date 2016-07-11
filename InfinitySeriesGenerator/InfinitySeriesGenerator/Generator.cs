@@ -12,17 +12,13 @@ namespace InfinitySeriesGenerator
             this.NoteCalculator = new NoteCalculator(startNoteIndex);
         }
 
-        private NoteCalculator NoteCalculator { get; set; }
+        private NoteCalculator NoteCalculator { get; }
 
         public IEnumerable<string> GenerateSeries(int total, int start)
         {
             var numbers = new int[start * 2 + total];
             var notes = new string[start * 2 + total];
             var octave = 3;
-
-            //j is used to add to the notes array, as it sometimes won't be synced with the i in the for loop.
-            //if j is 0, the counting in the for loop with j starts at 0. This would override the below code for 0 and 1 outside the for loop, so this changes j accordingly.
-            var j = start <= 1 ? 1 : 0;
 
             //0 and 1 are always the same in the series and don't adhere to the formula. They are calculated ahead of the other entries.
             numbers[0] = 0;
@@ -36,6 +32,10 @@ namespace InfinitySeriesGenerator
             {
                 notes[1] = this.NoteCalculator.GetSeriesEntry(1, numbers[1], ref octave);
             }
+
+            //j is used to add to the notes array, as it sometimes won't be synced with the i in the for loop.
+            //if j is 0, the counting in the for loop with j starts at 0. This would override the below code for 0 and 1 outside the for loop, so this changes j accordingly.
+            var j = start <= 1 ? 1 : 0;
 
             this.GenerateRestOfSeries(total, start, numbers, notes, j);
             return notes;
