@@ -21,12 +21,15 @@
         //stops people copy/pasting non-numbers in!
         private void NumberBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            this.numberBox.Text = InputRules.SanitiseInput(this.numberBox.Text);
+            this.seriesSizeInput.Text = InputRules.SanitiseInput(this.seriesSizeInput.Text);
         }
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            Generator.GenerateSeries(this.NoteNamesBox.SelectedIndex, Convert.ToInt32(this.numberBox.Text), Convert.ToInt32(this.startBox.Text));
+            var seriesSize = Convert.ToInt32(this.seriesSizeInput.Text);
+            var startIndex = Convert.ToInt32(this.startingIndexInput.Text);
+            var generator = new Generator(this.NoteNamesBox.SelectedIndex);
+            generator.GenerateSeries(seriesSize, startIndex);
         }
 
         //loads the notes into the combobox
