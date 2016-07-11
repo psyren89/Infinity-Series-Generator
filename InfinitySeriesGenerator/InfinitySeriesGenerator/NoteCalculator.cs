@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    internal class NoteCalculator
+    public class NoteCalculator
     {
         public static readonly IList<string> Notes =
             new List<string> { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }.AsReadOnly();
