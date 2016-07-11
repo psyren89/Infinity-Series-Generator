@@ -1,3 +1,17 @@
-**/obj/*
-**/bin/*
+bin/
+obj/
+*.com
+*.class
+*.dll
+*.exe
+*.pdb
+*.dll.config
+*.cache
 *.suo
+*.user
+
+# Include dlls if they’re in the NuGet packages directory
+!InfinitySeriesGenerator/packages/*/lib/*.dll
+!InfinitySeriesGenerator/packages/*/lib/*/*.dll
+# Include dlls if they're in the CommonReferences directory
+!*CommonReferences/*.dll
