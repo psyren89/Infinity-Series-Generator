@@ -1,23 +1,20 @@
 ﻿/*
 Author: Richard Gaynor
 */
-
 namespace InfinitySeriesGenerator
 {
     using System.Collections.Generic;
-    using System.IO;
 
-    using Microsoft.Win32;
-
-    internal static class Generator
+    internal class Generator
     {
-        /// <summary>
-        /// The notes of the scale.
-        /// </summary>
-        public static readonly IList<string> Notes =
-            new List<string> { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }.AsReadOnly();
+        public Generator(int startNoteIndex)
+        {
+            this.NoteCalculator = new NoteCalculator(startNoteIndex);
+        }
 
-        public static void GenerateSeries(int startNoteIndex, int total, int start)
+        private NoteCalculator NoteCalculator { get; set; }
+
+        public IEnumerable<string> GenerateSeries(int total, int start)
         {
             var numbers = new int[start * 2 + total];
             var notes = new string[start * 2 + total];
@@ -31,20 +28,20 @@ namespace InfinitySeriesGenerator
             numbers[0] = 0;
             if (start <= 0)
             {
-                notes[0] = Generator.GetSeriesEntry(0, startNoteIndex + numbers[0], ref octave);
+                notes[0] = this.NoteCalculator.GetSeriesEntry(0, numbers[0], ref octave);
             }
 
             numbers[1] = 1;
             if (start <= 1)
             {
-                notes[1] = Generator.GetSeriesEntry(1, startNoteIndex + numbers[1], ref octave);
+                notes[1] = this.NoteCalculator.GetSeriesEntry(1, numbers[1], ref octave);
             }
 
-            Generator.GenerateSeries(startNoteIndex, total, start, numbers, notes, j);
+            this.GenerateRestOfSeries(total, start, numbers, notes, j);
             return notes;
         }
 
-        private static void GenerateSeries(int startNoteIndex, int total, int start, IList<int> numbers, IList<string> notes, int j)
+        private void GenerateRestOfSeries(int total, int start, IList<int> numbers, IList<string> notes, int j)
         {
             var limit = start + total + 1;
             for (var i = 1; i < limit; i++)
@@ -67,7 +64,8 @@ namespace InfinitySeriesGenerator
 
                 if (index >= start)
                 {
-                    notes[2 * j] = Generator.GetSeriesEntry(index, numbers[index] + startNoteIndex, ref octave);
+                    
+                    notes[2 * j] = this.NoteCalculator.GetSeriesEntry(index, numbers[index], ref octave);
                 }
 
                 //reset octave for next note
@@ -78,49 +76,10 @@ namespace InfinitySeriesGenerator
 
                 if (nextIndex >= start)
                 {
-                    notes[2 * j + 1] = Generator.GetSeriesEntry(nextIndex, numbers[nextIndex] + startNoteIndex, ref octave);
+                    notes[2 * j + 1] = this.NoteCalculator.GetSeriesEntry(nextIndex, numbers[nextIndex], ref octave);
                     j++;
                 }
             }
-        }
-
-        /// <summary>
-        /// Calculates the index into Notes of the next item in the series.
-        /// Adjusts octave as required while keeping the result within the bounds (0..Notes.Count).
-        /// </summary>
-        private static int GetNextNoteIndex(int index, ref int octave)
-        {
-            var number = index;
-            while (number < 0 || number > 11)
-            {
-                if (number >= 12)
-                {
-                    number -= 12;
-                    ++octave;
-                }
-                else if (number < 0)
-                {
-                    number += 12;
-                    --octave;
-                }
-            }
-
-            return number;
-        }
-
-        /// <summary>
-        /// Calculates the next note in the series in the format [name][octave].
-        /// </summary>
-        private static string GetNoteName(int nextNoteIndex, ref int octave)
-        {
-            var noteIndex = Generator.GetNextNoteIndex(nextNoteIndex, ref octave);
-            var note = Generator.Notes[noteIndex];
-            return string.Format("{0}{1}", note, octave);
-        }
-
-        private static string GetSeriesEntry(int seriesResultIndex, int nextNoteIndex, ref int octave)
-        {
-            return string.Format("{0} = {1}", seriesResultIndex, Generator.GetNoteName(nextNoteIndex, ref octave));
         }
     }
 }
