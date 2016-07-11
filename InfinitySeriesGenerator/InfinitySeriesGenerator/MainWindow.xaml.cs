@@ -1,21 +1,25 @@
 ﻿namespace InfinitySeriesGenerator
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+
+    using Microsoft.Win32;
 
     public partial class MainWindow
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         //checks for numerical input
         private void NumberBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = !keyRules.IsNumberKey(e.Key) && !keyRules.IsDelOrBackspaceOrTabKey(e.Key);
+            e.Handled = !InputRules.IsPermitted(e.Key);
         }
 
         //stops people copy/pasting non-numbers in!
@@ -24,29 +28,13 @@
             this.seriesSizeInput.Text = InputRules.SanitiseInput(this.seriesSizeInput.Text);
         }
 
-        //the notes!
-        private string[] noteTypes = new string[12]
-        {
-            "C",
-            "C#",
-            "D",
-            "D#",
-            "E",
-            "F",
-            "F#",
-            "G",
-            "G#",
-            "A",
-            "A#",
-            "B"
-        };
-
-        //activates the algorithm
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            iGenerator iG = new iGenerator();
-            iG.startNote = NoteNamesBox.SelectedIndex;
-            iG.iSeriesGenerate(Convert.ToInt32(numberBox.Text), Convert.ToInt32(startBox.Text));
+            var seriesSize = Convert.ToInt32(this.seriesSizeInput.Text);
+            var startIndex = Convert.ToInt32(this.startingIndexInput.Text);
+            var generator = new Generator(this.NoteNamesBox.SelectedIndex);
+            var notes = generator.GenerateSeries(seriesSize, startIndex);
+            MainWindow.WriteToFile(notes);
         }
 
         //loads the notes into the combobox
@@ -67,9 +55,21 @@
             comboBox.SelectedIndex = 0;
         }
 
+        private static void WriteToFile(IEnumerable<string> notes)
+        {
+            //Saves the series as a text file
+            var dialog = new SaveFileDialog
+            {
+                FileName = "InfinitySeries",
+                DefaultExt = ".txt",
+                Filter = "Text documents (.txt)|*.txt"
+            };
 
-	    // ... Make the first item selected.
-	    comboBox.SelectedIndex = 0;
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                var filename = dialog.FileName;
+                File.WriteAllLines(filename, notes);
+            }
         }
     }
 }
