@@ -90,7 +90,7 @@ namespace InfinitySeriesGenerator
             var dialog = new SaveFileDialog
                              {
                                  FileName = "InfinitySeries",
-                                 DefaultExt = ".text",
+                                 DefaultExt = ".txt",
                                  Filter = "Text documents (.txt)|*.txt"
                              };
 
