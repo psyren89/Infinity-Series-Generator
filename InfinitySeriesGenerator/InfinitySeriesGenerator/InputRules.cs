@@ -11,7 +11,10 @@ namespace InfinitySeriesGenerator
     {
         public static bool IsPermitted(Key inKey)
         {
-            return InputRules.IsDelOrBackspace(inKey) || inKey == Key.Tab || InputRules.IsNumberKey(inKey);
+            return InputRules.IsDelOrBackspace(inKey) ||
+                inKey == Key.Tab || 
+                InputRules.IsNumberKey(inKey) ||
+                InputRules.IsArrowKey(inKey);
         }
 
         //stops people copy/pasting non-numbers in!
@@ -30,6 +33,11 @@ namespace InfinitySeriesGenerator
         private static bool IsNumberKey(Key inKey)
         {
             return inKey >= Key.D0 && inKey <= Key.D9 || inKey >= Key.NumPad0 && inKey <= Key.NumPad9;
+        }
+
+        private static bool IsArrowKey(Key inKey)
+        {
+            return inKey == Key.Left || inKey == Key.Right;
         }
     }
 }
