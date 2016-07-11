@@ -13,15 +13,15 @@
         }
 
         //checks for numerical input
-        private void numberBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void NumberBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = !keyRules.IsNumberKey(e.Key) && !keyRules.IsDelOrBackspaceOrTabKey(e.Key);
         }
 
         //stops people copy/pasting non-numbers in!
-        private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void NumberBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            numberBox.Text = keyRules.checkForChar(numberBox.Text);
+            this.seriesSizeInput.Text = InputRules.SanitiseInput(this.seriesSizeInput.Text);
         }
 
         //the notes!
@@ -42,7 +42,7 @@
         };
 
         //activates the algorithm
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             iGenerator iG = new iGenerator();
             iG.startNote = NoteNamesBox.SelectedIndex;
@@ -50,16 +50,23 @@
         }
 
         //loads the notes into the combobox
-        private void NoteNamesBox_Loaded(object sender, RoutedEventArgs e)
+        private void SetupStartingNoteNameSelector(object sender, RoutedEventArgs e)
         {
-            //... A List.
-	    List<string> data = iGenerator.noteTypes.Cast<string>().ToList();
-	    
-	    // ... Get the ComboBox reference.
-        var comboBox = sender as System.Windows.Controls.ComboBox;
+            // Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
 
-	    // ... Assign the ItemsSource to the List.
-	    comboBox.ItemsSource = data;
+            if (comboBox == null)
+            {
+                return;
+            }
+
+            // Assign the ItemsSource to the List.
+            comboBox.ItemsSource = NoteCalculator.Notes;
+
+            // Make the first item selected.
+            comboBox.SelectedIndex = 0;
+        }
+
 
 	    // ... Make the first item selected.
 	    comboBox.SelectedIndex = 0;
