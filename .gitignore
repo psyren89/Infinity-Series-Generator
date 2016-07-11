@@ -10,8 +10,14 @@ obj/
 *.suo
 *.user
 
-# Include dlls if they’re in the NuGet packages directory
-!InfinitySeriesGenerator/packages/*/lib/*.dll
-!InfinitySeriesGenerator/packages/*/lib/*/*.dll
-# Include dlls if they're in the CommonReferences directory
-!*CommonReferences/*.dll
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+# NuGet v3's project.json files produces more ignoreable files
+*.nuget.props
+*.nuget.targets
